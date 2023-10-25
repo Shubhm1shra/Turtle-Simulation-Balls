@@ -4,6 +4,7 @@ import time
 import numpy as np
 import threading
 
+#Constant Downwards Acceleration Factor
 gravity = 0.1
 
 def create_window(setup=(800, 600)):
@@ -69,6 +70,7 @@ class Ball:
             
         self.wn.mainloop()
 
+#For simulating multiple balls simultaneously
 class Simulate:
     def __init__(self, wn, balls):
         self.wn = wn
@@ -105,8 +107,8 @@ class Simulate:
                 Ball.ball.dy -= self.gravity
                 Ball.ball.sety(Ball.ball.ycor() + Ball.ball.dy)
                 Ball.ball.setx(Ball.ball.xcor() + Ball.ball.dx)
-                
 
+                #Wall Collision
                 if Ball.ball.ycor() <= -280 or Ball.ball.ycor() >= 280:
                     if Ball.ball.ycor() <= -320:
                         Ball.reset()
@@ -124,5 +126,17 @@ if __name__ == "__main__":
     ball2 = Ball(wn, pos=(50, 150))
     ball3 = Ball(wn)
 
+    """
+    Single-Ball Simulation 
+
+    simulation = Simulate(wn, [ball1])
+    simulation.play()
+    
+    or
+
+    simulation = ball1.play()
+    """
+
+    #Simulating Multiple Balls :)
     simulation = Simulate(wn, [ball1, ball2, ball3])
     simulation.play()
